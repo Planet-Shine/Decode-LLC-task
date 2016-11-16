@@ -1,20 +1,25 @@
 <!doctype html>
-<html ng-app="simpleSlider">
+<html ng-app="todo">
 <head>
 
-    <title>Простой слайдер</title>
+    <title>Todo</title>
 
     <meta charset="UTF-8" />
 
     <link rel="stylesheet" href="./styles.css" />
+
     <script type="text/javascript" src="build.js"></script>
 
 </head>
-<body>
+<body ng-controller="TodoCtrl as $todo">
 
-<div ng-controller="TodoApplication as $todo">
-
-</div>
+    <div class="page-cover page-cover_showed" layout="row" layout-align="center center">
+        <md-progress-circular
+                md-diameter="60"
+                layout-align="center"
+                md-mode="indeterminate">
+        </md-progress-circular>
+    </div>
 
 <!--
 
