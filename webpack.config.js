@@ -27,7 +27,7 @@ module.exports = {
         filename : path.normalize('./app/build.js'),
         library : 'todo'
     },
-    devtool      : 'source-map',
+    devtool      : 'source-map-inline',
     module       : {
         loaders  : [{
             test   : /\.js$/,

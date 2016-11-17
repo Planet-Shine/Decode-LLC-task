@@ -64,12 +64,14 @@
 
                 <md-fab-actions>
                     <div>
-                        <md-button aria-label="Edit" class="md-fab md-raised md-mini toolbar__more">
+                        <md-button ng-click="$todo.openEditProjectForm()"
+                                   aria-label="Edit" class="md-fab md-raised md-mini toolbar__more">
                             <div class="icons8-edit"></div>
                         </md-button>
                     </div>
                     <div>
-                        <md-button aria-label="Delete" class="md-fab md-raised md-mini toolbar__more">
+                        <md-button ng-click="$todo.deleteCurrentProject()"
+                                   aria-label="Delete" class="md-fab md-raised md-mini toolbar__more">
                             <div class="icons8-delete"></div>
                         </md-button>
                     </div>
@@ -298,7 +300,7 @@
                         Have a good day
                     </div>
                 </div>
-                <md-button ng-click="$todo.openSidePanel()"
+                <md-button ng-click="$todo.openCreateTaskForm()"
                            class="md-fab bottom-right-button add-todo-button"
                            aria-label="Add todo">
                     <div class="icons8-plus"></div>
@@ -314,7 +316,9 @@
                             <div class="projects-list__caption">
                                 Projects
                             </div>
-                            <md-button class="md-fab projects-list__add-button" aria-label="Add project">
+                            <md-button class="md-fab projects-list__add-button"
+                                       aria-label="Add project"
+                                       ng-click="$todo.openCreateProjectForm()">
                                 <div class="icons8-plus"></div>
                             </md-button>
                         </div>
@@ -335,40 +339,101 @@
             </div>
 
             <md-sidenav
+                    ng-class="{
+                        createProject : 'create-project-form-shown',
+                        editProject   : 'edit-project-form-shown',
+                        createTask    : 'create-task-form-shown'
+                    }[$todo.formName]"
                     class="md-sidenav-right side-panel"
                     md-component-id="side-panel">
-                <!--md-is-locked-open="$mdMedia('gt-md')"-->
 
-                <md-toolbar class="side-panel__toolbar">
-                    <div class="side-panel__close-box">
-                        <md-button class="md-fab side-panel__close" aria-label="Close side panel">
-                            <div class="side-panel__close-icon icons8-delete-2"></div>
-                            <div>Esc</div>
-                        </md-button>
-                    </div>
-                    <h1 class="md-toolbar-tools side-panel__header">
-                        Create new task
-                    </h1>
-                </md-toolbar>
-                <md-content class="side-panel__content">
-                    <div class="side-panel__content-inner">
-                        <md-input-container class="side-panel__input">
-                            <label>Task name</label>
-                            <input >
-                        </md-input-container>
-                        <md-input-container class="side-panel__input">
-                            <label>Description</label>
-                            <input >
-                        </md-input-container>
-                    </div>
-                </md-content>
-                <md-button ng-click="$todo.openSidePanel()"
-                           class="md-fab bottom-right-button side-panel__confirm"
-                           aria-label="Confirm edit">
-                    <div class="icons8-checkmark"></div>
-                </md-button>
+                <div class="create-project-form">
+                    <md-toolbar class="side-panel__toolbar">
+                        <div class="side-panel__close-box">
+                            <md-button ng-click="$todo.toggleSidePanel()" class="md-fab side-panel__close" aria-label="Close side panel">
+                                <div class="side-panel__close-icon icons8-delete-2"></div>
+                                <div>Esc</div>
+                            </md-button>
+                        </div>
+                        <h1 class="md-toolbar-tools side-panel__header">
+                            Create new project
+                        </h1>
+                    </md-toolbar>
+                    <md-content class="side-panel__content">
+                        <div class="side-panel__content-inner">
+                            <md-input-container class="side-panel__input">
+                                <label>Project name</label>
+                                <input ng-model="$todo.newProjectName">
+                            </md-input-container>
+                        </div>
+                    </md-content>
+                    <md-button ng-click="$todo.createNewProject()"
+                               class="md-fab bottom-right-button side-panel__confirm"
+                               aria-label="Confirm edit">
+                        <div class="icons8-checkmark"></div>
+                    </md-button>
+                </div>
+
+                <div class="edit-project-form">
+                    <md-toolbar class="side-panel__toolbar">
+                        <div class="side-panel__close-box">
+                            <md-button ng-click="$todo.toggleSidePanel()" class="md-fab side-panel__close" aria-label="Close side panel">
+                                <div class="side-panel__close-icon icons8-delete-2"></div>
+                                <div>Esc</div>
+                            </md-button>
+                        </div>
+                        <h1 class="md-toolbar-tools side-panel__header">
+                            Edit task
+                        </h1>
+                    </md-toolbar>
+                    <md-content class="side-panel__content">
+                        <div class="side-panel__content-inner">
+                            <md-input-container class="side-panel__input">
+                                <label>Task name</label>
+                                <input ng-model="$todo.editingProjectName">
+                            </md-input-container>
+                        </div>
+                    </md-content>
+                    <md-button ng-click="$todo.editProject()"
+                               class="md-fab bottom-right-button side-panel__confirm"
+                               aria-label="Confirm edit">
+                        <div class="icons8-checkmark"></div>
+                    </md-button>
+                </div>
+
+                <div class="create-task-form">
+                    <md-toolbar class="side-panel__toolbar">
+                        <div class="side-panel__close-box">
+                            <md-button ng-click="$todo.toggleSidePanel()" class="md-fab side-panel__close" aria-label="Close side panel">
+                                <div class="side-panel__close-icon icons8-delete-2"></div>
+                                <div>Esc</div>
+                            </md-button>
+                        </div>
+                        <h1 class="md-toolbar-tools side-panel__header">
+                            Create new task
+                        </h1>
+                    </md-toolbar>
+                    <md-content class="side-panel__content">
+                        <div class="side-panel__content-inner">
+                            <md-input-container class="side-panel__input">
+                                <label>Task name</label>
+                                <input ng-model="$todo.createTaskName" >
+                            </md-input-container>
+                            <md-input-container class="side-panel__input">
+                                <label>Description</label>
+                                <input ng-model="$todo.createTaskDescription" >
+                            </md-input-container>
+                        </div>
+                    </md-content>
+                    <md-button ng-click="$todo.createNewTask()"
+                               class="md-fab bottom-right-button side-panel__confirm"
+                               aria-label="Confirm edit">
+                        <div class="icons8-checkmark"></div>
+                    </md-button>
+                </div>
 
             </md-sidenav>
+
 
         </div>
     </div>

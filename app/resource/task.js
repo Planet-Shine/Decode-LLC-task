@@ -39,28 +39,14 @@ TaskResource.prototype.request = function (actionName, options) {
         options = {
             'task_id' : options['task_id']
         };
-        url     = host + '/task';
+        url     = url + '/task';
         method  = {
             'get' : {method:'GET'}
         };
         result  = $resource(url, options, method);
-    } else if (actionName === 'create' &&
-        options.session &&
-        options.Project &&
-        options.Project.id &&
-        options.Task &&
-        options.Task.title) {
-        options = {
-            'session' : options.session,
-            'Project' : {
-                'id' : options.Project.id
-            },
-            'Task' : {
-                'title' : options.Task.title,
-                'description' : options.Task.description || ''
-            }
-        };
-        url     = host + '/task';
+    } else if (actionName === 'create') {
+        options = {};
+        url     = url + '/task';
         method  = {
             'save' : {method : 'POST'}
         };
@@ -78,7 +64,7 @@ TaskResource.prototype.request = function (actionName, options) {
                 'description' : options.Task.description || ''
             }
         };
-        url     = host + '/task';
+        url     = url + '/task';
         method  = {
             'save' : {method : 'POST'}
         };
@@ -86,7 +72,7 @@ TaskResource.prototype.request = function (actionName, options) {
     } else if (actionName === 'delete' &&
         options.session &&
         options.task_id) {
-        url     = host + '/task';
+        url     = url + '/task';
         method  = {
             'delete' : {method : 'DELETE'}
         };
@@ -101,7 +87,7 @@ TaskResource.prototype.request = function (actionName, options) {
                 'id' : options.Task.id
             }
         };
-        url     = host + '/task/complite'; // complite — это не ошибка, такой сервис.
+        url     = url + '/task/complite'; // complite — это не ошибка, такой сервис.
         method  = {
             'save' : {method : 'POST'}
         };

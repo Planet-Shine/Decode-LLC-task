@@ -38,18 +38,7 @@ ProjectResource.prototype.request = function (actionName, options) {
             }
         };
         result = $resource(url, options, method);
-    } else if (actionName === 'update' &&
-        options.session &&
-        options.Project &&
-        options.Project.title &&
-        options.Project.id) {
-        options = {
-            'session' : options.session,
-            'Project' : {
-                'title' : options.Project.title,
-                'id'    : options.Project.id
-            }
-        };
+    } else if (actionName === 'update') {
         url = url + '/project';
         method = {
             'save' : {
@@ -57,16 +46,7 @@ ProjectResource.prototype.request = function (actionName, options) {
             }
         };
         result = $resource(url, options, method);
-    } else if (actionName === 'create' &&
-        options.session &&
-        options.Project &&
-        options.Project.title) {
-        options = {
-            'session' : options.session,
-            'Project' : {
-                'title' : options.Project.title
-            }
-        };
+    } else if (actionName === 'create') {
         url = url + '/project';
         method = {
             'save' : {
