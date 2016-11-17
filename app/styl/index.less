@@ -69,7 +69,7 @@ body {
 .right-col-footer {
   position: absolute;
   .pad(45px, 0, 0, 25px);
-  .size(100%, auto);
+  .size(auto, auto);
   .pos(0, auto, auto, 0);
   font-size: 15px;
 }
@@ -145,7 +145,11 @@ body {
 /* projects-list */
 
 .projects-list {
+  position: relative;
   padding-top: 20px;
+  max-height: 70%;
+  overflow-y: auto;
+  .box-sizing(border-box);
 }
 
 .projects-list__header {
