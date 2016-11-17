@@ -20,25 +20,24 @@
 
     <script type="text/javascript" src="./static/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="./static/jquery.pixlayout.0.9.7.js"></script>
-    <!--
-        <script type="text/javascript">
-            $(function(){
-                $.pixlayout({
-                    clip : true,
-                    //src : "./images/pp-bg-1.png",
-                    // src : "./images/pp-bg2.png",
-                    src : "./images/pp-side-panel-bg.jpg",
-                    opacity : 0.5,
-                    show : false,
-                    top : 0,
-                    left : 0,
-                    fixed : true,
-                    right : 0,
-                    pervious : false
-                });
+
+    <script type="text/javascript">
+        $(function(){
+            $.pixlayout({
+                clip : true,
+                //src : "./images/pp-bg-1.png",
+                // src : "./images/pp-bg2.png",
+                src : "./images/pp-side-panel-bg.jpg",
+                opacity : 0.5,
+                show : false,
+                top : 0,
+                left : 0,
+                fixed : true,
+                right : 0,
+                pervious : false
             });
-        </script>
-    -->
+        });
+    </script>
 
 </head>
 <body ng-controller="TodoCtrl as $todo">
@@ -323,20 +322,25 @@
                                 <div class="icons8-plus"></div>
                             </md-button>
                         </div>
-                        <md-list class="projects-list__items">
-                            <md-list-item ng-repeat="$project in $todo.projects"
-                                          ng-class="$index === $todo.selectedProjectIndex ? 'projects-list__item_selected' : ''"
-                                          class="md-1-line projects-list__item"
-                                          ng-click="$todo.selectProject($index)">
-                                <span data-id="{{$project.Project.id}}">{{$project.Project.title}}</span>
-                                <span class="projects-list__item-task-count">{{$project.Project.task_count}}</span>
-                            </md-list-item>
-                        </md-list>
+                        <div class="projects-list__items-box" layout="column" layout-align="center center">
+                            <md-list class="projects-list__items" flex="85">
+                                <md-list-item ng-repeat="$project in $todo.projects"
+                                              ng-class="$index === $todo.selectedProjectIndex ? 'projects-list__item_selected' : ''"
+                                              class="md-1-line projects-list__item"
+                                              ng-click="$todo.selectProject($index)">
+                                    <span data-id="{{$project.Project.id}}">{{$project.Project.title}}</span>
+                                    <span class="projects-list__item-task-count">{{$project.Project.task_count}}</span>
+                                </md-list-item>
+                            </md-list>
+                            <div class="right-col-footer" flex>
+                                <div class="right-col-footer-inner">
+                                    Log out
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="right-col-footer">
-                    Log out
-                </div>
+
             </div>
 
             <md-sidenav
