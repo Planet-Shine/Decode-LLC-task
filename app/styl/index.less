@@ -117,10 +117,20 @@ body {
   min-width: @workspaceMinWidth;
 }
 
+.workspace-inner {
+  position: relative;
+  height: 100%;
+}
+
 .workspace .workspace_no-todo {
   .no-todo {
     display: block;
   }
+}
+
+.workspace-board {
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .profile-info {
@@ -332,12 +342,11 @@ md-progress-circular path {
 /* toolbar */
 
 .toolbar {
-  position: fixed;
   width: 100%;
   .level(2);
   height: 50px;
+  min-height: 50px;
   .box-sizing(border-box);
-  padding-left: @leftColSize;
 }
 
 .toolbar__inner {
@@ -474,7 +483,7 @@ md-menu-content.toolbar__more-menu {
 /* todo-list */
 
 .todo-list {
-  .pad(0, 50px, 0, 0);
+  .pad();
   background: @lightColor;
 }
 
