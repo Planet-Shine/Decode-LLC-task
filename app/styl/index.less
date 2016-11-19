@@ -1,31 +1,41 @@
 @charset "utf-8";
+@import './icons.css';
+@import './sf-ui-text.css';
 @import '../../node_modules/lesshat/lesshat.less';
 @import './reset-css.less';
 @import './layout-solves.less';
 @import '../../node_modules/angular-material/angular-material.min.css';
 
 
-@pageMinHeight     : 450px;
-@lightColor        : #f7f7f7;
-@themeColor        : #6b6b99;
-@captionColor      : #b3bbcb;
-@lightItemColor    : #b1b1c8;
-@darkColor         : #292c33;
-@white             : #ffffff;
-@gray              : #dadada;
-@lightGray         : #eaeaea;
-@darkGray          : #bdbdbd;
-@contentTextColor  : #212121;
-@viewMinHeight     : 300px;
-@viewMinWidth      : 800px;
-@leftColSize       : 342.5px;
-@workspaceMinWidth : 800px;
+@pageMinHeight         : 450px;
+@lightColor            : #f7f7f7;
+@themeColor            : #6b6b99;
+@captionColor          : #b3bbcb;
+@lightItemColor        : #b1b1c8;
+@darkColor             : #292c33;
+@white                 : #ffffff;
+@gray                  : #dadada;
+@lightGray             : #eaeaea;
+@darkGray              : #bdbdbd;
+@contentTextColor      : #212121;
+@viewMinHeight         : 300px;
+@viewMinWidth          : 800px;
+@leftColSize           : 342.5px;
+@workspaceMinWidth     : 800px;
+@pageFontFamily        : 'SF UI Text', 'sf_ui_textsemibold', Arial, Verdana;
 
 body {
-  font-family : 'SF UI Text', Arial, Verdana;
+  font-family : @pageFontFamily;
   position: relative;
   .size(100%, 100%);
-} 
+}
+
+.todo-view {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 
 /* page-cover */
 .page-cover {
@@ -392,7 +402,7 @@ md-input-container.toolbar__search-input {
     border-bottom-width: 2px;
   }
   input {
-    font-family: 'SF UI Text', Arial, Verdana;
+    font-family: @pageFontFamily;
     color : @contentTextColor;
     font-size: 15px;
     line-height: 20px;
@@ -410,11 +420,23 @@ md-input-container.toolbar__search-input {
   }
 }
 
-.toolbar__search-input_hidden {
-  display: none;
+// Выкидываем элемент за границы видимости, тем самым скрывая.
+// Но приэтом сохраняя его видимым для браузера так, что фокус можно поставить в любой момент.
+md-input-container.toolbar__search-input.toolbar__search-input_hidden {
+  margin-left: -10000000px;
 }
 
+md-menu-item.toolbar__more-item {
+  margin: 10px;
+  background: inherit;
+  .toolbar__more {
+    text-align: center;
+  }
+}
 
+md-menu-content.toolbar__more-menu {
+  background : @lightColor;
+}
 
 /* end toolbar */
 
@@ -515,7 +537,6 @@ md-list-item.md-no-proxy.todo-list__item {
   height : 40px;
   line-height: 40px;
   color : @contentTextColor;
-  font-weight: bold;
   font-size: 15px;
   .text-word(break-word, nowrap, ellipsis);
 }
@@ -653,7 +674,7 @@ md-input-container.side-panel__input {
     color : @white;
   }
   input {
-    font-family: 'SF UI Text', Arial, Verdana;
+    font-family: @pageFontFamily;
     color : @white;
     font-size: 15px;
     line-height: 20px;

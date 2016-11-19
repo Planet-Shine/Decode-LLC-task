@@ -30,25 +30,28 @@ module.exports = {
     devtool      : 'source-map-inline',
     module       : {
         loaders  : [{
-            test   : /\.js$/,
-            loader : 'babel-loader',
-            query: {
-                // presets: ['es2015'],
-                // plugins: ['transform-runtime']
-            }
-        },
-        {
-            test: /\.html/,
-            loader: 'raw-loader'
-        },
-        {
-            test: /\.less$/,
-            loader: ExtractTextPlugin.extract(
-                // activate source maps via loader query
-                'css?sourceMap!' +
-                'less?sourceMap'
-            )
-        }]
+                test   : /\.js$/,
+                loader : 'babel-loader',
+                query: {
+                    presets: ['es2015', 'angular'] //,
+                    // plugins: ['transform-runtime']
+                }
+            },
+            {
+                test: /\.html/,
+                loader: 'raw-loader'
+            },
+            {
+                test: /\.less$/,
+                loader: ExtractTextPlugin.extract(
+                    // activate source maps via loader query
+                    'css?sourceMap!' +
+                    'less?sourceMap'
+                )
+            },{
+                test: /\.(png|woff|woff2|eot|ttf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: 'url-loader?limit=100000'
+            }]
     },
     plugins: [
         new ExtractTextPlugin(path.normalize('./app/styles.css'))

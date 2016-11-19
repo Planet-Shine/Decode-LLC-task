@@ -14,4 +14,6 @@ require('./resource/task')(applicationModule);
 require("./styl/index.less"); // Собираем стили.
 
 require('./todo.config')(applicationModule);
-require('./todo/todo.controller')(applicationModule);
+require('./todo/todo.component')(applicationModule);
+require('./todo/projectList/projectList.component')(applicationModule);
+require('./todo/searchView/searchView.component')(applicationModule);
