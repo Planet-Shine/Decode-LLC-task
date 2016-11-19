@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a002fb3e-cccc-48b8-b629-73ace11005b2" name="Default" comment="">
+    <list default="true" id="a002fb3e-cccc-48b8-b629-73ace11005b2" name="Default" comment="layout fixes">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.js" afterPath="$PROJECT_DIR$/app/build.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/layout-fixes.js" afterPath="$PROJECT_DIR$/app/layout-fixes.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/styl/index.less" afterPath="$PROJECT_DIR$/app/styl/index.less" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/styles.css" afterPath="$PROJECT_DIR$/app/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/todo/directives/moreMenu.directive.template.html" afterPath="$PROJECT_DIR$/app/todo/directives/moreMenu.directive.template.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/todo/todo.component.template.html" afterPath="$PROJECT_DIR$/app/todo/todo.component.template.html" />
     </list>
     <ignored path="Decode-LLC-task.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,8 +30,8 @@
       <file leaf-file-name="todo.component.template.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/todo/todo.component.template.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="58" selection-start-line="4" selection-start-column="58" selection-end-line="4" selection-end-column="58" />
+            <state relative-caret-position="102">
+              <caret line="6" column="62" selection-start-line="6" selection-start-column="62" selection-end-line="6" selection-end-column="62" />
               <folding>
                 <element signature="n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
                 <element signature="n#div#0;n#md-sidenav#0;n#div#0;n#div#0;n#!!top" expanded="false" />
@@ -48,8 +46,8 @@
       <file leaf-file-name="index.less" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/styl/index.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="465" column="20" selection-start-line="465" selection-start-column="20" selection-end-line="465" selection-end-column="20" />
+            <state relative-caret-position="272">
+              <caret line="16" column="33" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -58,8 +56,8 @@
       <file leaf-file-name="layout-fixes.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/layout-fixes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="289">
+              <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -86,8 +84,8 @@
         <option value="$PROJECT_DIR$/app/dev-index.html" />
         <option value="$PROJECT_DIR$/app/todo.txt" />
         <option value="$PROJECT_DIR$/app/todo/directives/moreMenu.directive.template.html" />
-        <option value="$PROJECT_DIR$/app/layout-fixes.js" />
         <option value="$PROJECT_DIR$/app/todo/todo.component.template.html" />
+        <option value="$PROJECT_DIR$/app/layout-fixes.js" />
         <option value="$PROJECT_DIR$/app/styl/index.less" />
       </list>
     </option>
@@ -98,8 +96,8 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1311" />
-    <option name="width" value="1249" />
+    <option name="x" value="738" />
+    <option name="width" value="1822" />
     <option name="height" value="1440" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -133,6 +131,16 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="Decode-LLC-task" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Decode-LLC-task" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Decode-LLC-task" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -218,7 +226,7 @@
       <workItem from="1479376135193" duration="445000" />
       <workItem from="1479377441890" duration="6932000" />
       <workItem from="1479398689056" duration="3625000" />
-      <workItem from="1479574713088" duration="10955000" />
+      <workItem from="1479574713088" duration="12925000" />
     </task>
     <task id="LOCAL-00001" summary="comment pp">
       <created>1479376538097</created>
@@ -276,23 +284,30 @@
       <option name="project" value="LOCAL" />
       <updated>1479582093393</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="layout fixes">
+      <created>1479588363406</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1479588363406</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21957000" />
+    <option name="totallyTimeSpent" value="23927000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1311" y="0" width="1249" height="1440" extended-state="0" />
+    <frame x="738" y="0" width="1822" height="1440" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27002478" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20571749" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22997947" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2293578" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32110092" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -321,7 +336,8 @@
     <MESSAGE value="layout fix" />
     <MESSAGE value="froject refresh" />
     <MESSAGE value="project refresh" />
-    <option name="LAST_COMMIT_MESSAGE" value="project refresh" />
+    <MESSAGE value="layout fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="layout fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -384,14 +400,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/layout-fixes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/dev-index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -402,8 +410,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/todo/todo.component.template.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="58" selection-start-line="4" selection-start-column="58" selection-end-line="4" selection-end-column="58" />
+        <state relative-caret-position="102">
+          <caret line="6" column="62" selection-start-line="6" selection-start-column="62" selection-end-line="6" selection-end-column="62" />
           <folding>
             <element signature="n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
             <element signature="n#div#0;n#md-sidenav#0;n#div#0;n#div#0;n#!!top" expanded="false" />
@@ -414,10 +422,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/layout-fixes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/styl/index.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="465" column="20" selection-start-line="465" selection-start-column="20" selection-end-line="465" selection-end-column="20" />
+        <state relative-caret-position="272">
+          <caret line="16" column="33" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="33" />
           <folding />
         </state>
       </provider>
