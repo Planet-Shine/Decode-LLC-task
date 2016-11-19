@@ -1,4 +1,4 @@
-export default (applicationModule) => {
+module.exports = (applicationModule) => {
     applicationModule.config([
         '$mdThemingProvider',
         function ($mdThemingProvider) {

@@ -1,18 +1,16 @@
-function TodoResource () {}
-
-TodoResource.prototype = {
-    handleError : function (error) {
+module.exports = class TodoResource {
+    constructor($resource) {
+        this.$resource = $resource;
+    };
+    handleError (error) {
         alert('Error : ' + JSON.stringify(error));
-    },
-    isError : function (data) {
-        if (data.message &&
-                typeof data.message === 'string' &&
+    };
+    isError (data) {
+        if (typeof data.message === 'string' ||
                 data.message instanceof Array) {
             return true;
-        } else {
-            return false;
         }
-    }
+        return false;
+    };
+    $resource = null;
 };
-
-export default TodoResource;
