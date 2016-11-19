@@ -1,0 +1,24 @@
+<div class="projects-list">
+    <div class="projects-list__header">
+        <div class="projects-list__caption">
+            Projects
+        </div>
+        <md-button class="md-fab projects-list__add-button"
+                   aria-label="Add project"
+                   ng-click="$ctrl.addProject()">
+            <div class="icons8-plus"></div>
+        </md-button>
+    </div>
+    <div class="projects-list__items-box" layout="column" layout-align="center start">
+        <md-list class="projects-list__items" flex="85">
+            <md-list-item ng-repeat="$project in $ctrl.projects"
+                          ng-class="$project === $ctrl.selectedProject ? 'projects-list__item_selected' : ''"
+                          class="md-1-line projects-list__item"
+                          ng-click="$ctrl.selectProject($project)">
+                <span data-id="{{$project.id}}">{{$project.title}}</span>
+                <span class="projects-list__item-task-count">{{$project.task_count}}</span>
+            </md-list-item>
+        </md-list>
+        <left-footer class="right-col-footer" flex></left-footer>
+    </div>
+</div>

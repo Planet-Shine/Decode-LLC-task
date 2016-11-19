@@ -1,0 +1,19 @@
+<md-menu md-position-mode="target-right target" >
+    <md-button class="md-fab toolbar__more" aria-label="More" ng-click="$mdOpenMenu($event)">
+        <div class="icons8-more"></div>
+    </md-button>
+    <md-menu-content class="toolbar__more-menu" width="1">
+        <md-menu-item class="toolbar__more-item">
+            <md-button ng-click="$todo.openEditProjectForm()"
+                       aria-label="Edit" class="md-fab md-raised md-mini toolbar__more">
+                <div class="icons8-edit"></div>
+            </md-button>
+        </md-menu-item>
+        <md-menu-item class="toolbar__more-item">
+            <md-button ng-click="$todo.deleteCurrentProject()"
+                       aria-label="Delete" class="md-fab md-raised md-mini toolbar__more">
+                <div class="icons8-delete"></div>
+            </md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>
