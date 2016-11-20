@@ -19,6 +19,8 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
     $scope.account   = {};  // Директива вывода информации о профайле.
     this.projects    = [];  // Список проектов.
 
+
+
     this.editingProjectName = '';
     this.newProjectName = '';
     this.searchText = '';
@@ -33,9 +35,27 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
         console.log(searchQuery);
     };
 
+    // Project create.
+
+    this.isCreateProjectFormDisplayed = false; // Показана ли форма "Создать проект".
+
     this.startAddingProject = function () {
-        console.log('startAddingProject');
+        this.openCreateProjectForm();
     };
+
+    this.openCreateProjectForm = function () {
+        // this.formName = 'createProject';
+        this.isCreateProjectFormDisplayed = true;
+        this.toggleSidePanel();
+    };
+
+    this.createProject = function (data) {
+        this.isCreateProjectFormDisplayed = false;
+        console.log(data);
+    };
+
+    // End project create.
+
 
     this.selectProject = function (project) {
         console.log(project);
@@ -65,11 +85,11 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
         $accountResource.request('session', {'session' : session})
             .get()
             .$promise.then(function (data) {
-            loadAppData();
-        }, function (error) {
-            getSession(callback);
-            // $accountResource.handleError(error);
-        });
+                loadAppData();
+            }, function (error) {
+                getSession(callback);
+                // $accountResource.handleError(error);
+            });
     }
 
     function loadAppData () {
@@ -148,10 +168,7 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
         this.toggleSidePanel();
     };
 
-    this.openCreateProjectForm = function () {
-        this.formName = 'createProject';
-        this.toggleSidePanel();
-    };
+
 
     this.openEditProjectForm = function () {
         console.log('openEditProjectForm!');

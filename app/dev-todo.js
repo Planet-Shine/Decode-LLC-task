@@ -17,3 +17,4 @@ require('./todo.config')(applicationModule);
 require('./todo/todo.component')(applicationModule);
 require('./todo/projectList/projectList.component')(applicationModule);
 require('./todo/searchView/searchView.component')(applicationModule);
+require('./todo/forms/createProject.form.component')(applicationModule);
