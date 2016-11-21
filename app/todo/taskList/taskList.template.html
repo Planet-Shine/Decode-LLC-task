@@ -1,59 +1,64 @@
 
+<div class="workspace-board-inner" to-bottom-distance-scroll-catch="100">
+    <div>
+        <md-list ng-class="!($ctrl.tasks && $ctrl.tasks.length) && 'hidden'" class="todo-list__items">
+            <div ng-repeat="(key, values) in $ctrl.tasks | groupBy:'dateCaption'">
+                <md-subheader class="md-no-sticky todo-list__subheader">
+                    <span class="todo-list__subheader-day-name">
+                        {{
+                            {
+                                '0'         : 'Sunday',
+                                '1'         : 'Monday',
+                                '2'         : 'Tuesday',
+                                '3'         : 'Wednesday',
+                                '4'         : 'Thursday',
+                                '5'         : 'Friday',
+                                '6'         : 'Saturday',
+                                'today'     : 'Today',
+                                'yesterday' : 'Yesterday',
+                                'tomorrow'  : 'Tomorrow'
+                            }[values[0].dayName]
+                        }}
+                    </span>
+                    <span class="todo-list__subheader-day-caption"
+                          ng-if="['today', 'yesterday', 'tomorrow'].indexOf(values[0].dayName) === -1">
+                        ({{ key }})
+                    </span>
+                </md-subheader>
+                <div class="todo-list__group">
+                    <div ng-repeat="task in values">
+                        <md-list-item class="md-1-line todo-list__item" ng-click="null">
+                            <div class="todo-list__complete">
+                                <md-button class="md-fab md-mini todo-list__complete-button" aria-label="Complete task">
+                                    <div class="todo-list__complete-circle"></div>
+                                </md-button>
+                            </div>
+                            <div class="todo-list__item-caption">
+                                {{ task.title }}
+                            </div>
+                        </md-list-item>
+                        <md-divider ng-if="!$last" class="todo-list__divider"></md-divider>
+                    </div>
+                </div>
+            </div>
+        </md-list>
 
-<md-list ng-class="!($ctrl.tasks && $ctrl.tasks.length) && 'hidden'" class="todo-list__items">
+        <div ng-class="($ctrl.tasks && $ctrl.tasks.length) && 'hidden'"
+             class="no-todo"
+             layout="column"
+             layout-align="center center">
+            <div class="icons8-todo-list no-todo__caption-icon"></div>
+            <div class="no-todo__caption">
+                Have a good day
+            </div>
+        </div>
 
-    <!--
-        <md-subheader class="md-no-sticky todo-list__subheader">Today</md-subheader>
-        <div class="todo-list__group">
-            <md-list-item class="md-1-line todo-list__item">
-                <div class="todo-list__complete">
-                    <div class="todo-list__complete-circle" ng-click="null"></div>
-                </div>
-                <div class="todo-list__item-caption">
-                    Create a company Create a company Create a company Create a company Create a company Create a company Create a company Create a company
-                </div>
-            </md-list-item>
-        </div>
-        <md-subheader class="md-no-sticky todo-list__subheader">Stories</md-subheader>
-        <div class="todo-list__group">
-            <md-list-item class="md-1-line todo-list__item">
-                <div class="todo-list__complete">
-                    <div class="todo-list__complete-circle" ng-click="null"></div>
-                </div>
-                <div class="todo-list__item-caption">
-                    Create a company 2
-                </div>
-            </md-list-item>
-        </div>
-        <md-subheader class="md-no-sticky todo-list__subheader">Goodies</md-subheader>
-        <div class="todo-list__group">
-            <md-list-item class="md-1-line todo-list__item">
-                <div class="todo-list__complete">
-                    <div class="todo-list__complete-circle" ng-click="null"></div>
-                </div>
-                <div class="todo-list__item-caption">
-                    Create a company 3
-                </div>
-            </md-list-item>
-            <md-divider class="todo-list__divider"></md-divider>
-            <md-list-item class="md-1-line todo-list__item">
-                <div class="todo-list__complete">
-                    <div class="todo-list__complete-circle" ng-click="null"></div>
-                </div>
-                <div class="todo-list__item-caption">
-                    Create a company 4
-                </div>
-            </md-list-item>
-        </div>
-    -->
-</md-list>
+        <md-button ng-click="$ctrl.onStartCreatingTask()"
+                   class="md-fab bottom-right-button add-todo-button"
+                   aria-label="Add todo">
+            <div class="icons8-plus"></div>
+        </md-button>
 
-<div ng-class="($ctrl.tasks && $ctrl.tasks.length) && 'hidden'"
-     class="no-todo"
-     layout="column"
-     layout-align="center center">
-    <div class="icons8-todo-list no-todo__caption-icon"></div>
-    <div class="no-todo__caption">
-        Have a good day
+
     </div>
 </div>

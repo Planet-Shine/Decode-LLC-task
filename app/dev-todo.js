@@ -1,7 +1,8 @@
 const applicationModule = angular.module('todo', [
     'ngMaterial',
     'ngResource',
-    'ngCookies'
+    'ngCookies',
+    'angular.filter'
 ]);
 
 require('./layout-fixes');
@@ -10,6 +11,8 @@ require('./layout-fixes');
 require('./resource/account')(applicationModule);
 require('./resource/project')(applicationModule);
 require('./resource/task')(applicationModule);
+
+require('./todo/filters/formatDate.js')(applicationModule);
 
 require("./styl/index.less"); // Собираем стили.
 

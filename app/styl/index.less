@@ -124,8 +124,13 @@ body {
 
 .workspace-board {
   position: relative;
+}
+
+.workspace-board-inner {
+  position: relative;
   overflow-x: hidden;
   overflow-y: auto;
+  height: 100%;
 }
 
 .profile-info {
@@ -484,7 +489,7 @@ md-menu-content.toolbar__more-menu {
 md-list.todo-list__items {
   width : 621px;
   margin: 0 auto;
-  .pad();
+  .pad(0,0,0, 60px);
 }
 
 .md-subheader.todo-list__subheader {
@@ -495,21 +500,34 @@ md-list.todo-list__items {
   font-size: 15px;
   height : 22px;
   .md-subheader-inner {
-  .pad();
-}
+    .pad();
+  }
+
+  .todo-list__subheader-day-caption {
+    font-size: 12px;
+  }
 }
 
 .todo-list__group {
   .border-radius(8px);
   background: @white;
   .box-shadow(0 5px 20px rgba(0,0,0,0.2));
+  overflow: hidden;
 }
 
-md-list-item.md-no-proxy.todo-list__item {
-  display: block;
+md-list-item.todo-list__item {
   .box-sizing(border-box);
-  .pad(0, 10px, 0, 10px);
   height: 60px;
+  .md-button:not([disabled]):hover {
+    background-color: rgba(158,158,158,0.07);
+  }
+  .md-list-item-inner {
+    margin-top: 5px;
+  }
+}
+
+md-list-item._md-button-wrap.todo-list__item > div.md-button:first-child {
+  .pad();
 }
 
 .todo-list__complete {
@@ -522,9 +540,34 @@ md-list-item.md-no-proxy.todo-list__item {
   border-right : 1px solid @lightGray;
 }
 
+.md-button.md-fab.todo-list__complete-button {
+  background: transparent;
+  vertical-align: top;
+  line-height : 20px;
+  .size(36px, 36px);
+  min-height: 36px;
+  .marg(-8px, -8px);
+  .pad();
+  .box-shadow(none);
+
+}
+
+.todo-list__complete-button.md-button.md-fab:not([disabled]):hover {
+  background: transparent;
+  .box-shadow(none);
+}
+
+.md-input-focused.md-button.md-fab:not([disabled]) {
+  background: transparent;
+  .box-shadow(none);
+}
+
+
+
 .todo-list__complete-circle {
   width : 14px;
   height : 14px;
+  .marg(8px, 0px);
   border: 3px solid @darkGray;
   .border-radius(20px);
   outline: none;
@@ -538,7 +581,7 @@ md-list-item.md-no-proxy.todo-list__item {
   padding-left: 17px;
   .box-sizing(border-box);
   height : 40px;
-  line-height: 40px;
+  line-height: 44px;
   color : @contentTextColor;
   font-size: 15px;
   .text-word(break-word, nowrap, ellipsis);

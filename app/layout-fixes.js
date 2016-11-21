@@ -2,7 +2,7 @@ var $ = require('jquery');
 
 $(function () {
     var doc                 = $(document),
-        workspaceBoard      = $(".workspace-board"),
+        workspaceBoard      = $(".workspace-board-inner"),
         addTodoButton       = $('.add-todo-button'),
         startBottomPosition = 30;
 

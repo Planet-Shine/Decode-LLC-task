@@ -2,11 +2,12 @@ module.exports = (applicationModule) => {
     var ctrl,
         component;
 
-ctrl = ['$scope', '$accountResource', '$projectResource', '$taskResource', '$cookies', '$mdSidenav', '$timeout',
-function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $mdSidenav, $timeout) {
+ctrl = ['$scope', '$accountResource', '$projectResource', '$taskResource', '$cookies', '$mdSidenav', '$timeout', 'dateFormatFilter',
+function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $mdSidenav, $timeout, dateFormatFilter) {
     var self               = this,
         taskPagingSize     = 10,
         taskPageNumber     = null,
+        totalTaskCount     = null,
         session            = $cookies.get('session'),
         sessionGetTries    = 0,
         sessionGetMax      = 5,
@@ -37,33 +38,38 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
 
     this.loadTaskPage = function (pageNumber, project) {
         project = project || this.selectedProject;
-        taskPageNumber = pageNumber;
-        if (pageNumber === 1) {
-            this.tasks = [];
+        // Делаем запрос только если не все загрузили.
+        if (project && (pageNumber === 1 ||
+                (totalTaskCount !== null ? (pageNumber - 1) * taskPagingSize < totalTaskCount : true))) {
+
+            taskPageNumber = pageNumber;
+            if (pageNumber === 1) {
+                this.tasks = [];
+            }
+
+            // Подгружаем список тасков.
+            $taskResource.request('fetch', {
+                    'session'       : session,
+                    'project_id'    : project.id,
+                    'paging_size'   : taskPagingSize,
+                    'paging_offset' : taskPagingSize * (taskPageNumber - 1)
+                })
+                .get()
+                .$promise
+                .then((response) => {
+                    var tasks = response.tasks.map(function (task) {
+                        return task.Task;
+                    });
+                    totalTaskCount = response['total_count'];
+                    tasks = dateFormatFilter(tasks, 'created_at');
+                    this.tasks = this.tasks.concat(tasks);
+                });
         }
-        // Подгружаем список тасков.
-        $taskResource.request('fetch', {
-                'session'       : session,
-                'project_id'    : project.id,
-                'paging_size'   : taskPagingSize,
-                'paging_offset' : taskPagingSize * (taskPageNumber - 1)
-            })
-            .get()
-            .$promise
-            .then((response) => {
-                this.tasks = this.tasks.concat(response.tasks.map(function (task) {
-                    // Форматировать дату.
-                    // Группировать по дням.
-                    // Сделать вывод Сегодня и Вчера.
-                    return task.Task;
-                }));
-            });
     };
 
     // Project list
     this.projectChange = function (project) {
         this.loadTaskPage(1, project);
-
     };
 
     this.selectProject = function (project) {
@@ -452,6 +458,7 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
     require('./directives/profileInfo.directive.js')(component);
     require('./directives/leftFooter.directive.js')(component);
     require('./directives/focusOnCondition.js')(component);
+    require('./directives/toBottomDistanceScrollCatch.directive.js')(component);
 
     return component;
 };
