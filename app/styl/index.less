@@ -28,6 +28,7 @@ body {
   font-family : @pageFontFamily;
   position: relative;
   .size(100%, 100%);
+  overflow : hidden;
 }
 
 .todo-view {
@@ -37,12 +38,15 @@ body {
   height: 100%;
 }
 
+.hidden {
+  display: none;
+}
+
 /* page-cover */
 .page-cover {
   position : fixed;
   .pos(0, 0);
   .size(100%, 100%);
-  min-height : @pageMinHeight;
   background : @lightColor;
   .opacity(0);
   .transition(opacity 1s linear 0s);
@@ -107,10 +111,6 @@ body {
   background: @lightColor;
 }
 
-.content-box .workspace {
-  min-height: @viewMinHeight;
-}
-
 .workspace {
   position: relative;
   height: 100%;
@@ -120,12 +120,6 @@ body {
 .workspace-inner {
   position: relative;
   height: 100%;
-}
-
-.workspace .workspace_no-todo {
-  .no-todo {
-    display: block;
-  }
 }
 
 .workspace-board {
@@ -323,7 +317,6 @@ md-progress-circular path {
   .pos(0,0);
   .size(100%, 100%);
   color: @lightItemColor;
-  display: none;
 }
 
 .no-todo__caption-icon {
@@ -710,29 +703,9 @@ md-input-container.side-panel__input {
 
 /* forms */
 
-.create-project-form {
-  display: none;
+md-input-container label:not(.md-container-ignore).md-required:after {
+  content : none;
 }
-.create-project-form-shown {
-  .create-project-form {
-    display: block;
-  }
-}
-.edit-project-form {
-  display: none;
-}
-.edit-project-form-shown {
-  .edit-project-form {
-    display: block;
-  }
-}
-.create-task-form {
-  display: none;
-}
-.create-task-form-shown {
-  .create-task-form {
-    display: block;
-  }
-}
+
 /* end forms */
 

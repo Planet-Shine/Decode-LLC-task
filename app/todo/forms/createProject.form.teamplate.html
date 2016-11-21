@@ -1,5 +1,6 @@
 
-<form class="$ctrl.classId" ng-submit="$ctrl.submit()">
+<form ng-class="!$ctrl.isDisplayed && 'hidden'"
+      ng-submit="$ctrl.submit()">
     <md-toolbar class="side-panel__toolbar">
         <h1 class="md-toolbar-tools side-panel__header">
             Create new project
@@ -11,12 +12,12 @@
                 <label>
                     Project name
                 </label>
-                <input ng-model="$ctrl.projectName">
+                <input ng-model="$ctrl.title" ng-required="true">
             </md-input-container>
         </div>
     </md-content>
     <md-button class="md-fab bottom-right-button side-panel__confirm"
-               aria-label="Confirm edit"
+               aria-label="Confirm create"
                type="submit">
         <div class="icons8-checkmark"></div>
     </md-button>

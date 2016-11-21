@@ -1,27 +1,23 @@
 var Form = require('./form.js');
 
 class CreateProjectForm extends Form {
-    constructor($scope) {
-        $scope.$watch('$ctrl.isCreateProjectFormDisplayed', (newValue) => {
-            if (newValue === false) {
-                this.clear();
-            }
-            this.isDisplayed = newValue;
-        });
+    constructor() {
         super();
     }
     prepareSubmitData() {
         this.submitData = {
-            'projectName' : this.projectName
+            'title' : this.title
         };
     }
-    clear() {
-        this.projectName = '';
+    submit() {
+        super.submit();
+        this.clear();
     }
-    isDisplayed = false;
-    projectName = '';
-    isCreateProjectFormDisplayed = false;
+    clear() {
+        this.title = '';
+    }
+    title = '';
 }
-CreateProjectForm.$inject = ['$scope'];
+CreateProjectForm.$inject = [];
 
 module.exports = CreateProjectForm;

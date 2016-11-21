@@ -11,10 +11,10 @@ class TaskResource extends TodoResource {
             result;
 
         if (actionName === 'fetch' &&
-            options.session &&
-            options.project_id &&
-            options.paging_size &&
-            options.paging_offset) {
+                options.session &&
+                options.project_id &&
+                options.paging_size &&
+                options.hasOwnProperty('paging_offset')) {
 
             options = {
                 session            : options.session,

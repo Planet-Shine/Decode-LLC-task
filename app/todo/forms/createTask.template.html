@@ -1,0 +1,25 @@
+
+<form ng-submit="$ctrl.submit()" ng-class="!$ctrl.isDisplayed && 'hidden'">
+    <md-toolbar class="side-panel__toolbar">
+        <h1 class="md-toolbar-tools side-panel__header">
+            Create new task
+        </h1>
+    </md-toolbar>
+    <md-content class="side-panel__content">
+        <div class="side-panel__content-inner">
+            <md-input-container class="side-panel__input">
+                <label>Task name</label>
+                <input ng-model="$ctrl.title" ng-required="true">
+            </md-input-container>
+            <md-input-container class="side-panel__input">
+                <label>Description</label>
+                <input ng-model="$ctrl.description" >
+            </md-input-container>
+        </div>
+    </md-content>
+    <md-button type="submit"
+               class="md-fab bottom-right-button side-panel__confirm"
+               aria-label="Create task">
+        <div class="icons8-checkmark"></div>
+    </md-button>
+</form>

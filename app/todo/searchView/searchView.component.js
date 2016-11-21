@@ -9,7 +9,7 @@ module.exports = (applicationModule) => {
             this.isSearchInputHidden = !this.isSearchInputHidden;
             this.searchQuery = '';
         };
-        $scope.$watch("$ctrl.searchQuery", (function (newValue, oldValue) {
+        $scope.$watch("$ctrl.searchQuery", ((newValue, oldValue) => {
             this.onSearchQueryChange({
                 'searchQuery' : newValue
             });
@@ -21,7 +21,7 @@ module.exports = (applicationModule) => {
             'onSearchQueryChange' : '&'
         },
         'controller' : ctrl,
-        'template' : require('./searchView.component.template.html')
+        'template' : require('./searchView.template.html')
     });
 
     return component;

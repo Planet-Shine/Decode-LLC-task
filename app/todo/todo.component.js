@@ -2,9 +2,11 @@ module.exports = (applicationModule) => {
     var ctrl,
         component;
 
-ctrl = ['$scope', '$accountResource', '$projectResource', '$taskResource', '$cookies', '$mdSidenav',
-function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $mdSidenav) {
+ctrl = ['$scope', '$accountResource', '$projectResource', '$taskResource', '$cookies', '$mdSidenav', '$timeout',
+function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $mdSidenav, $timeout) {
     var self               = this,
+        taskPagingSize     = 10,
+        taskPageNumber     = null,
         session            = $cookies.get('session'),
         sessionGetTries    = 0,
         sessionGetMax      = 5,
@@ -16,60 +18,207 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
         loaderTimeout = 1000;
 
     // Просачивающиеся значения.
-    $scope.account   = {};  // Директива вывода информации о профайле.
-    this.projects    = [];  // Список проектов.
+    $scope.account       = {};   // Директива вывода информации о профайле.
+    this.projects        = [];   // Список проектов.
+    this.selectedProject = null; // Выбранный проект. Подсачивается в компонент редактирования проекта.
+    this.tasks           = [];   // Задачи текущего проекта.
 
-
-
-    this.editingProjectName = '';
-    this.newProjectName = '';
-    this.searchText = '';
-    this.formName = '';
-    this.createTaskName = '';
-    this.createTaskDescription = '';
     this.selectedProjectIndex = 0;
-    this.searchInputHidden = true;
     this.loaderModificator = loaderModificators['showed'];
 
     this.searchTodoByQuery = function (searchQuery) {
         console.log(searchQuery);
     };
 
-    // Project create.
+    this.nextTaskPage = function () {
+        this.loadTaskPage(taskPageNumber + 1);
+    };
+
+
+    this.loadTaskPage = function (pageNumber, project) {
+        project = project || this.selectedProject;
+        taskPageNumber = pageNumber;
+        if (pageNumber === 1) {
+            this.tasks = [];
+        }
+        // Подгружаем список тасков.
+        $taskResource.request('fetch', {
+                'session'       : session,
+                'project_id'    : project.id,
+                'paging_size'   : taskPagingSize,
+                'paging_offset' : taskPagingSize * (taskPageNumber - 1)
+            })
+            .get()
+            .$promise
+            .then((response) => {
+                this.tasks = this.tasks.concat(response.tasks.map(function (task) {
+                    // Форматировать дату.
+                    // Группировать по дням.
+                    // Сделать вывод Сегодня и Вчера.
+                    return task.Task;
+                }));
+            });
+    };
+
+    // Project list
+    this.projectChange = function (project) {
+        this.loadTaskPage(1, project);
+
+    };
+
+    this.selectProject = function (project) {
+        var selectedProject = this.selectedProject,
+            isChanged;
+        if ((!selectedProject && project) || (project.id !== selectedProject.id)) {
+            isChanged = true;
+        }
+        this.selectedProject = project;
+        if (isChanged) {
+            this.projectChange(project);
+        }
+    };
+
+    // End project list
+
+
+
+    // Project create form.
 
     this.isCreateProjectFormDisplayed = false; // Показана ли форма "Создать проект".
 
-    this.startAddingProject = function () {
-        this.openCreateProjectForm();
-    };
-
     this.openCreateProjectForm = function () {
-        // this.formName = 'createProject';
+        this.hideAllContentOfSidePanel();
         this.isCreateProjectFormDisplayed = true;
-        this.toggleSidePanel();
+        this.openSidePanel();
     };
 
-    this.createProject = function (data) {
-        this.isCreateProjectFormDisplayed = false;
+    this.createProject = function (formData) {
+        this.closeSidePanel();
+        $projectResource.request('create', {})
+            .save({
+                'session' : session,
+                'Project' : {
+                    'title' : formData.title
+                }
+            })
+            .$promise.then(function (response) {
+                self.fetchProject(response.Project.id);
+            }, $projectResource.handleError);
+
+    };
+
+    this.fetchProject = function (projectId) {
+        $projectResource.request('fetch', {'session' : session, 'project_id' : projectId})
+            .get()
+            .$promise.then((data) => {
+                var ids = this.projects.map((item) => {
+                        return item.id;
+                    }),
+                    indexOfProject;
+                indexOfProject = ids.indexOf(data.Project.id);
+                if (indexOfProject !== -1) {
+                    this.replaceProject(self.projects[indexOfProject], data.Project);
+                } else {
+                    this.addProjectToList(data.Project);
+                }
+            }, $projectResource.handleError);
+    };
+
+    // End project create form.
+
+    this.isEditProjectFormDisplayed = false; // Показана ли форма "Создать проект".// Project edit form.
+
+    this.editProject = function (formData) {
+        this.closeSidePanel();
+        $projectResource
+            .request('update', {})
+            .save({
+                'session' : session,
+                'Project' : {
+                    'id'    : formData.targetProject.id,
+                    'title' : formData.project.title
+                }
+            })
+            .$promise.then(function (response) {
+                self.replaceProject(formData.targetProject, response.Project);
+            }, $projectResource.handleError);
+    };
+
+    this.openEditProjectForm = function () {
+        this.hideAllContentOfSidePanel();
+        this.isEditProjectFormDisplayed = true;
+        this.openSidePanel();
+    };
+
+    // End project edit form.
+
+
+
+    // Create task.
+
+    this.isCreateTaskFormDisplayed = false;
+
+    this.createTask = function (formData) {
+        this.closeSidePanel();
+        $taskResource.request('create', {})
+            .save({
+                'session' : session,
+                'Project' : {
+                    'id' : formData.project.id
+                },
+                'Task' : {
+                    'title'       : formData.task.title,
+                    'description' : formData.task.description
+                }
+            })
+            .$promise.then(function (data) {
+                self.fetchProject(formData.project.id);
+            }, $projectResource.handleError);
+    };
+
+    this.openCreateTaskForm = function () {
+        this.hideAllContentOfSidePanel();
+        this.isCreateTaskFormDisplayed = true;
+        this.openSidePanel();
+    };
+
+    // End create task.
+
+
+    // Task list.
+
+    this.openTask = function (data) {
         console.log(data);
     };
 
-    // End project create.
+    this.completeTask = function (data) {
+        console.log(data);
+    };
 
+    this.deleteTask = function (data) {
+        console.log(data);
+    };
 
-    this.selectProject = function (project) {
-        console.log(project);
+    this.openEditTaskForm = function (data) {
+        console.log(data);
+    };
+
+    this.editTask = function (data) {
+        console.log(data);
+    };
+
+    // End task list.
+
+    this.hideAllContentOfSidePanel = function () {
+        this.isCreateProjectFormDisplayed = false;
+        this.isEditProjectFormDisplayed   = false;
+        this.isCreateTaskFormDisplayed    = false;
     };
 
 
     this.getCurrentProject = function () {
         return this.projects[this.selectedProjectIndex];
     };
-    /*
-    this.reselectProject = function (index) {
-        this.selectProject(this.selectedProjectIndex);
-    };
-    */
 
     if (session) {
         checkSession();
@@ -143,8 +292,12 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
 
     this.replaceProject = function (target, newProject) {
         var index = this.projects.indexOf(target);
-        this.projects.splice(index, 1, newProject);
-        this.reselectProject();
+        if (index !== -1) {
+            this.projects.splice(index, 1, newProject);
+            if (target === this.selectedProject) {
+                this.selectProject(this.projects[index]);
+            }
+        }
     };
 
     this.initializeGui = function () {
@@ -155,27 +308,36 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
         }, loaderTimeout);
     };
 
-    this.toggleSidePanel = function () {
+    this.openSidePanel = function () {
         $mdSidenav('side-panel')
-            .toggle()
-            .then(function () {
-                console.log('ready!');
-            });
+            .open();
     };
 
+    this.closeSidePanel = function (callback) {
+        var sidePanel = $mdSidenav('side-panel').close();
+        if (callback) {
+            sidePanel.then(callback);
+        }
+    };
+
+
+/*
     this.openCreateTaskForm = function () {
         this.formName = 'createTask';
-        this.toggleSidePanel();
+        this.openSidePanel();
     };
+    */
 
 
 
+    /*
     this.openEditProjectForm = function () {
         console.log('openEditProjectForm!');
         this.editingProjectName = this.getCurrentProject().Project.title;
         this.formName           = 'editProject';
         this.toggleSidePanel();
     };
+    */
 
     this.fooValue = null;
 
@@ -183,27 +345,7 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
         this.projects.push(project);
     };
 
-    this.fetchProject = function (projectId) {
-        $projectResource.request('fetch', {'session' : session, 'project_id' : projectId})
-            .get()
-            .$promise.then(function (data) {
-            var ids = self.projects.map(function (item) {
-                    return item.Project.id;
-                }),
-                indexOfProject;
-            if ($accountResource.isError(data)) {
-                $accountResource.handleError(data);
-            } else {
-                indexOfProject = ids.indexOf(data.Project.id);
-                if (indexOfProject !== -1) {
-                    self.replaceProject(self.projects[indexOfProject], data.Project);
-                } else {
-                    self.addProjectToList(data.Project);
-                }
-            }
-        }, $projectResource.handleError);
-    };
-
+    /*
     this.editProject = function () {
         var currentProject = self.getCurrentProject(),
             projectName = this.editingProjectName;
@@ -226,14 +368,13 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
             }
         }, $projectResource.handleError);
     };
-
+    */
+/*
     this.createNewProject = function () {
         var projectName = this.newProjectName;
 
-
         this.newProjectName = '';
-        this.toggleSidePanel();
-
+        this.openSidePanel();
 
         $projectResource.request('create', {})
             .save({
@@ -251,7 +392,9 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
         }, $projectResource.handleError);
 
     };
+    */
 
+    /*
     this.createNewTask = function () {
         var createTaskName        = this.createTaskName,
             createTaskDescription = this.createTaskDescription,
@@ -269,32 +412,31 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
                 }
             })
             .$promise.then(function (data) {
-            if ($taskResource.isError(data)) {
-                $taskResource.handleError(data);
-            } else {
-                self.fetchProject(currentProject.Project.id);
-                self.toggleSidePanel();
-            }
-        }, $projectResource.handleError);
+                if ($taskResource.isError(data)) {
+                    $taskResource.handleError(data);
+                } else {
+                    self.fetchProject(currentProject.Project.id);
+                    self.openSidePanel();
+                }
+            }, $projectResource.handleError);
     };
+    */
 
     this.deleteProject = function (project) {
         var index = this.projects.indexOf(project);
-        this.projects.splice(index, 1);
+        if (index !== -1) {
+            this.projects.splice(index, 1);
+        }
     };
 
     this.deleteCurrentProject = function () {
-        console.log('deleteCurrentProject!');
+        var project = this.selectedProject;
         if (project) {
-            $projectResource.request('create', {'session' : session, 'project_id' : project.Project.id})
+            $projectResource.request('create', {'session' : session, 'project_id' : project.id})
                 .delete()
-                .$promise.then(function (data) {
-                if ($accountResource.isError(data)) {
-                    $accountResource.handleError(data);
-                } else {
+                .$promise.then(function () {
                     self.deleteProject(project);
-                }   
-            }, $projectResource.handleError);
+                }, $projectResource.handleError);
         }
     };
 
@@ -303,7 +445,7 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
     component = applicationModule.component('todoView', {
         'controllerAs' : '$todo',
         'controller'   : ctrl,
-        'template'     : require('./todo.component.template.html')
+        'template'     : require('./todo.template.html')
     });
 
     require('./directives/moreMenu.directive.js')(component);

@@ -33,6 +33,7 @@ module.exports = (applicationModule) => {
 
     component = applicationModule.component('projectList', {
         'bindings' : {
+           'selectedProject'      : '<',
            'projects'             : '<',
            'onStartAddingProject' : '&',
            'onSelectProject'      : '&'

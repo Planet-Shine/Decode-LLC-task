@@ -1,0 +1,23 @@
+
+<form ng-class="!$ctrl.isDisplayed && 'hidden'" ng-submit="$ctrl.submit()">
+    <md-toolbar class="side-panel__toolbar">
+        <h1 class="md-toolbar-tools side-panel__header">
+            Edit project
+        </h1>
+    </md-toolbar>
+    <md-content class="side-panel__content">
+        <div class="side-panel__content-inner">
+            <md-input-container class="side-panel__input">
+                <label>
+                    Project name
+                </label>
+                <input ng-model="$ctrl.title" ng-required="true">
+            </md-input-container>
+        </div>
+    </md-content>
+    <md-button class="md-fab bottom-right-button side-panel__confirm"
+               aria-label="Confirm edit"
+               type="submit">
+        <div class="icons8-checkmark"></div>
+    </md-button>
+</form>
