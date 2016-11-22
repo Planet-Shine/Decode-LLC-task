@@ -27,9 +27,11 @@
                 </md-subheader>
                 <div class="todo-list__group">
                     <div ng-repeat="task in values">
-                        <md-list-item class="md-1-line todo-list__item" ng-click="null">
+                        <md-list-item class="md-1-line todo-list__item" ng-click="$ctrl.onTaskClick(task)">
                             <div class="todo-list__complete">
-                                <md-button class="md-fab md-mini todo-list__complete-button" aria-label="Complete task">
+                                <md-button class="md-fab md-mini todo-list__complete-button"
+                                           aria-label="Complete task"
+                                           ng-click="$ctrl.onCompleteClick(task)">
                                     <div class="todo-list__complete-circle"></div>
                                 </md-button>
                             </div>

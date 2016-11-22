@@ -13,7 +13,7 @@ module.exports = (module) => {
 
                 createdAt = new Date(item[fieldName]);
 
-                createdAt = new Date(new Date().getTime() + parseInt(Math.random() * (4 * 86400000), 10) - (2 * 86400000));
+                // createdAt = new Date(new Date().getTime() + parseInt(Math.random() * (4 * 86400000), 10) - (2 * 86400000));
 
                 dayName   = createdAt.getDay();
                 createdAt = [createdAt.getDate(),

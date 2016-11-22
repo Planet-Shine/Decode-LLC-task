@@ -36,9 +36,9 @@
         <md-sidenav class="md-sidenav-right side-panel" md-component-id="side-panel">
             <div class="side-panel__close-box">
                 <md-button ng-click="$todo.closeSidePanel()"
-                           class="md-fab side-panel__close"
+                           class="md-fab side-panel__button"
                            aria-label="Close side panel">
-                    <div class="side-panel__close-icon icons8-delete-2"></div>
+                    <div class="side-panel__button-icon icons8-delete-2"></div>
                     <div>Esc</div>
                 </md-button>
             </div>
@@ -46,6 +46,8 @@
             <create-project-form is-displayed="$todo.isCreateProjectFormDisplayed" on-submit="$todo.createProject(data)"></create-project-form>
             <edit-project-form project="$todo.selectedProject" is-displayed="$todo.isEditProjectFormDisplayed" on-submit="$todo.editProject(data)"></edit-project-form>
             <create-task-form project="$todo.selectedProject" is-displayed="$todo.isCreateTaskFormDisplayed" on-submit="$todo.createTask(data)"></create-task-form>
+            <task-info is-displayed="$todo.isTaskInfoDisplayed" task="$todo.selectedTask" on-delete-task="$todo.deleteTask(task)" on-edit-task="$todo.editTask(task)"></task-info>
+
 
 
             <!--

@@ -5,8 +5,8 @@ module.exports = (todoComponent) => {
             return function(scope, element, attrs) {
                 var previousListHeight = 0,
                     previousScrollTop = null,
-                    catchTimeoutDescriptor;
-
+                    catchTimeoutDescriptor,
+                    isCatchDistanceSent = false;
 
 
                 element.bind("scroll", handler);
@@ -16,13 +16,13 @@ module.exports = (todoComponent) => {
                         countOfTrys = 30,
                         targetElement = $(element[0]).find('.todo-list__items');
 
-
                     function delayCatch () {
                         var listHeight = targetElement.height();
                         clearTimeout(catchTimeoutDescriptor);
                         if (listHeight !== previousListHeight) {
                             previousListHeight = listHeight;
                             scope.catchDistanceToBottomBeacon = !scope.catchDistanceToBottomBeacon;
+                            isCatchDistanceSent = false;
                             handler(null);
                         } else {
                             if (tryNumber < countOfTrys) {
@@ -37,7 +37,6 @@ module.exports = (todoComponent) => {
                     var distanceToBottom,
                         scrollTop,
                         clientHeight,
-                        isCatchedDistanceToBottom = scope.isCatchedDistanceToBottom,
                         scrollHeight  = element[0].scrollHeight;
 
                     distanceToBottom = parseInt(attrs['toBottomDistanceScrollCatch'], 10);
@@ -46,7 +45,8 @@ module.exports = (todoComponent) => {
 
                     if (distanceToBottom > scrollHeight - (scrollTop + clientHeight)) {
                         scope.isCatchedDistanceToBottom = true;
-                        if (event) {
+                        if (event && !isCatchDistanceSent) {
+                            isCatchDistanceSent = true;
                             scope.catchDistanceToBottomBeacon = !scope.catchDistanceToBottomBeacon;
                         }
                     } else {

@@ -635,9 +635,16 @@ md-toolbar:not(.md-menu-toolbar).side-panel__toolbar {
   display: block;
   text-align: center;
   float: left;
-  width: 420px;
+  width: 400px;
   font-size: 18px;
   padding-top: 30px;
+}
+
+.side-panel__description {
+  color : @white;
+  font-size: 12px;
+  .pad(2px, 16px, 2px, 0);
+  line-height: 22px;
 }
 
 .side-panel__close-box {
@@ -648,7 +655,8 @@ md-toolbar:not(.md-menu-toolbar).side-panel__toolbar {
   .pad(4px, 17px, 6px, 0);
 }
 
-.md-button.md-fab.side-panel__close {
+.md-button.md-fab.side-panel__button-additional,
+.md-button.md-fab.side-panel__button {
   display: block;
   width: 40px;
   height: 40px;
@@ -674,11 +682,31 @@ md-toolbar:not(.md-menu-toolbar).side-panel__toolbar {
     font-size: 9px;
     line-height: 12px;
   }
-  .ng-scope.side-panel__close-icon {
+  .ng-scope.side-panel__button-icon {
     line-height: 20px;
     padding-top: 3px;
     font-size: 23px;
   }
+}
+
+.md-button.md-fab.side-panel__button-additional {
+  display: block;
+  float: right;
+  margin-left: -2px;
+  .ng-scope.side-panel__button-icon {
+    line-height: 20px;
+    padding-top: 3px;
+    font-size: 20px;
+    color : #51555e;
+  }
+}
+.side-panel__additionals {
+  display: block;
+  float: left;
+  .pad(0, 17px);
+  width : 77px;
+  height: 64px;
+  margin-left: -43px;
 }
 
 md-sidenav md-content {

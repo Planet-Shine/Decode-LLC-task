@@ -32,6 +32,7 @@ class TaskResource extends TodoResource {
         } else if (actionName === 'fetch' &&
             options.task_id) {
             options = {
+                'session' : options.session,
                 'task_id' : options['task_id']
             };
             url     = url + '/task';
@@ -46,19 +47,7 @@ class TaskResource extends TodoResource {
                 'save' : {method : 'POST'}
             };
             result  = $resource(url, options, method);
-        } else if (actionName === 'update' &&
-            options.session &&
-            options.Task &&
-            options.Task.id &&
-            options.Task.title) {
-            options = {
-                'session' : options.session,
-                'Task' : {
-                    'id' : options.Task.id,
-                    'title' : options.Task.title,
-                    'description' : options.Task.description || ''
-                }
-            };
+        } else if (actionName === 'update') {
             url     = url + '/task';
             method  = {
                 'save' : {method : 'POST'}
@@ -72,16 +61,7 @@ class TaskResource extends TodoResource {
                 'delete' : {method : 'DELETE'}
             };
             result  = $resource(url, options, method);
-        } else if (actionName === 'complete' &&
-            options.session &&
-            options.Task &&
-            options.Task.id) {
-            options = {
-                'session' : options.session,
-                'Task' : {
-                    'id' : options.Task.id
-                }
-            };
+        } else if (actionName === 'complete') {
             url     = url + '/task/complite'; // complite — это не ошибка, такой сервис.
             method  = {
                 'save' : {method : 'POST'}

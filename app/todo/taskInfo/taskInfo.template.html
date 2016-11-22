@@ -1,0 +1,31 @@
+
+<div ng-class="!$ctrl.isDisplayed && 'hidden'">
+    <md-toolbar class="side-panel__toolbar">
+        <h1 class="md-toolbar-tools side-panel__header">
+            {{ $ctrl.task.title }}
+        </h1>
+        <div class="side-panel__additionals">
+            <md-button ng-click="$ctrl.onDeleteTask({task : $ctrl.task})"
+                       class="md-fab side-panel__button-additional"
+                       aria-label="Delete task">
+                <div class="side-panel__button-icon icons8-delete"></div>
+            </md-button>
+            <md-button ng-click="$ctrl.onEditTask({task : $ctrl.task})"
+                       class="md-fab side-panel__button side-panel__button-additional"
+                       aria-label="Edit task">
+                <div class="side-panel__button-icon icons8-edit"></div>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-content class="side-panel__content">
+        <div class="side-panel__content-inner">
+            <div class="side-panel__description">
+                {{ $ctrl.task.description }}
+            </div>
+        </div>
+    </md-content>
+
+
+
+</div>
