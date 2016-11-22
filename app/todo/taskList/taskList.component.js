@@ -33,6 +33,7 @@ class TaskList {
             }
         });
     }
+    project = null;
     tasks = null;
 }
 
@@ -42,6 +43,7 @@ module.exports = (applicationModule) => {
     applicationModule.component('taskList', {
         'bindings' : {
             'tasks'                     : '<',
+            'project'                   : '<',
             'onOpenTask'                : '&',
             'onCompleteTask'            : '&',
             'onCatchedDistanceToBottom' : '&',

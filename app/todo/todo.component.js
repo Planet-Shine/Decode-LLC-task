@@ -26,7 +26,6 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
     this.tasks           = [];   // Задачи текущего проекта.
     this.selectedTask    = null;
 
-    this.selectedProjectIndex = 0;
     this.loaderModificator = loaderModificators['showed'];
     this.currentTaskFetchPromise = null;
     this.lastSearchQuery = '';
@@ -45,7 +44,7 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
         this.loadTaskPage(taskPageNumber + 1);
     };
 
-    this.loadTaskPage = function (pageNumber, project, searchQuery) {
+    this.loadTaskPage = function (pageNumber, project) {
         var promise,
             isReplaceTasks = false,
             searchQuery = this.lastSearchQuery;
@@ -95,7 +94,7 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
     this.selectProject = function (project) {
         var selectedProject = this.selectedProject,
             isChanged;
-        if ((!selectedProject && project) || (project.id !== selectedProject.id)) {
+        if ((!selectedProject && project) || (project && selectedProject && (project.id !== selectedProject.id))) {
             isChanged = true;
         }
         this.selectedProject = project;
@@ -141,9 +140,10 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
                         return item.id;
                     }),
                     indexOfProject;
+
                 indexOfProject = ids.indexOf(data.Project.id);
                 if (indexOfProject !== -1) {
-                    this.replaceProject(self.projects[indexOfProject], data.Project);
+                    this.replaceProject(this.projects[indexOfProject], data.Project);
                 } else {
                     this.addProjectToList(data.Project);
                 }
@@ -251,6 +251,7 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
     };
 
     this.completeTask = function (data) {
+        var selectedProject = this.selectedProject;
         $taskResource.request('complete', {})
             .save({
                 'session' : session,
@@ -261,10 +262,12 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
             .$promise
             .then((data) => {
                 this.removeTaskFromList(data.Task.id);
+                this.fetchProject(selectedProject.id);
             }, $taskResource.errorHandler);
     };
 
     this.deleteTask = function (task) {
+        var selectedProject = this.selectedProject;
         this.closeSidePanel();
         $taskResource.request('delete', {
                 'session' : session,
@@ -274,6 +277,7 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
             .$promise
             .then((data) => {
                 this.removeTaskFromList(task.id);
+                this.fetchProject(selectedProject.id);
             }, $taskResource.errorHandler);
     };
 
@@ -315,12 +319,12 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
             targetTask;
         if (indexOfTask !== -1) {
             targetTask = this.tasks[indexOfTask];
-            this.tasks[indexOfTask] = {
+            this.tasks[indexOfTask] = dateFormatFilter([{
                 'id' : task['id'],
                 'description' : task['description'],
                 'title' : task['title'],
                 'created_at' : targetTask['created_at']
-            };
+            }], 'created_at')[0];
             if (targetTask === this.selectedTask) {
                 this.selectedTask = this.tasks[indexOfTask];
             }
@@ -339,10 +343,6 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
         this.isEditTaskFormDisplayed      = false;
     };
 
-
-    this.getCurrentProject = function () {
-        return this.projects[this.selectedProjectIndex];
-    };
 
     if (session) {
         checkSession();
@@ -416,9 +416,7 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
         var index = this.projects.indexOf(target);
         if (index !== -1) {
             this.projects.splice(index, 1, newProject);
-            if (target === this.selectedProject) {
-                this.selectProject(this.projects[index]);
-            }
+            this.selectProject(this.projects[index]);
         }
     };
 
@@ -452,6 +450,9 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
         var index = this.projects.indexOf(project);
         if (index !== -1) {
             this.projects.splice(index, 1);
+            if (this.selectedProject && project.id === this.selectedProject.id) {
+                this.selectProject(null);
+            }
         }
     };
 

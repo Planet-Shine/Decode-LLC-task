@@ -1,5 +1,5 @@
 'use strict';
-const NODE_ENV = /*process.env.NODE_ENV || */ 'development';
+const NODE_ENV = 'production';/*process.env.NODE_ENV || */ 'development';
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');

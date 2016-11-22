@@ -1,8 +1,11 @@
+
+const angular = require('angular');
+
 module.exports = (applicationModule) => {
     var ctrl,
         component;
 
-    ctrl = ['$scope', function ($scope) {
+    ctrl = [function () {
         this.selectedProject = null;
         this.addProject = function () {
             this.onStartAddingProject();
@@ -15,20 +18,6 @@ module.exports = (applicationModule) => {
             });
         };
 
-        this.watchProjects = function (newValue, oldValue) {
-            var initializeList = (function () {
-                this.selectProject(this.projects[0]);
-            }).bind(this);
-            if (angular.equals(oldValue, newValue) && newValue.length) {
-                initializeList();
-            } else {
-                if (oldValue.length === 0 && newValue.length > 0) {
-                    initializeList();
-                }
-            }
-        };
-
-        $scope.$watchCollection('$ctrl.projects', this.watchProjects.bind(this));
     }];
 
     component = applicationModule.component('projectList', {

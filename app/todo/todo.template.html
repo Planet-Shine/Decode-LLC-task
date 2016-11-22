@@ -16,7 +16,8 @@
                            on-open-task="$todo.openTask(data)"
                            on-complete-task="$todo.completeTask(data)"
                            on-catched-distance-to-bottom="$todo.nextTaskPage()"
-                           on-start-creating-task="$todo.openCreateTaskForm()">
+                           on-start-creating-task="$todo.openCreateTaskForm()"
+                           project="$todo.selectedProject">
                 </task-list>
             </div>
 
