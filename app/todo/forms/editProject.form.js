@@ -2,10 +2,10 @@ var Form = require('./form.js');
 
 class EditProjectForm extends Form {
     constructor($scope) {
-        super();
         $scope.$watch("$ctrl.project", (newValue) => {
             this.refresh(newValue || {});
         });
+        super();
     }
     prepareSubmitData() {
         this.submitData = {

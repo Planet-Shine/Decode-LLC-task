@@ -46,8 +46,8 @@
             <create-project-form is-displayed="$todo.isCreateProjectFormDisplayed" on-submit="$todo.createProject(data)"></create-project-form>
             <edit-project-form project="$todo.selectedProject" is-displayed="$todo.isEditProjectFormDisplayed" on-submit="$todo.editProject(data)"></edit-project-form>
             <create-task-form project="$todo.selectedProject" is-displayed="$todo.isCreateTaskFormDisplayed" on-submit="$todo.createTask(data)"></create-task-form>
-            <task-info is-displayed="$todo.isTaskInfoDisplayed" task="$todo.selectedTask" on-delete-task="$todo.deleteTask(task)" on-edit-task="$todo.editTask(task)"></task-info>
-
+            <task-info is-displayed="$todo.isTaskInfoDisplayed" task="$todo.selectedTask" on-delete-task="$todo.deleteTask(task)" on-edit-task="$todo.openEditTaskForm(task)"></task-info>
+            <edit-task-form is-displayed="$todo.isEditTaskFormDisplayed" task="$todo.selectedTask" project="$todo.selectedProject" on-submit="$todo.editTask(data)"></edit-task-form>
 
 
             <!--

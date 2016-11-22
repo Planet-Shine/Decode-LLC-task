@@ -277,12 +277,54 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
             }, $taskResource.errorHandler);
     };
 
+    this.isEditTaskFormDisplayed = false;
+
     this.openEditTaskForm = function (data) {
-        console.log(data);
+        this.hideAllContentOfSidePanel();
+        this.isEditTaskFormDisplayed = true;
+        this.openSidePanel();
     };
 
     this.editTask = function (data) {
-        console.log(data);
+        var task    = data['task'],
+            project = data['project'];
+
+        this.closeSidePanel();
+
+        $taskResource.request('update', {})
+            .save({
+                'session' : session,
+                'Task' : {
+                    'id'          : task.id,
+                    'title'       : task.title,
+                    'description' : task.description
+                }
+            })
+            .$promise
+            .then((data) => {
+                this.updateTaskInList(data.Task);
+            }, $taskResource.errorHandler);
+        
+    };
+
+    this.updateTaskInList = function (task) {
+        var ids = this.tasks.map((task) => {
+                return task.id;
+            }),
+            indexOfTask = ids.indexOf(task.id),
+            targetTask;
+        if (indexOfTask !== -1) {
+            targetTask = this.tasks[indexOfTask];
+            this.tasks[indexOfTask] = {
+                'id' : task['id'],
+                'description' : task['description'],
+                'title' : task['title'],
+                'created_at' : targetTask['created_at']
+            };
+            if (targetTask === this.selectedTask) {
+                this.selectedTask = this.tasks[indexOfTask];
+            }
+        }
     };
 
 
@@ -294,6 +336,7 @@ function ($scope, $accountResource, $projectResource, $taskResource, $cookies, $
         this.isEditProjectFormDisplayed   = false;
         this.isCreateTaskFormDisplayed    = false;
         this.isTaskInfoDisplayed          = false;
+        this.isEditTaskFormDisplayed      = false;
     };
 
 

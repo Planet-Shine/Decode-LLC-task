@@ -23,5 +23,6 @@ require('./todo/searchView/searchView.component')(applicationModule);
 require('./todo/forms/createProject.form.component')(applicationModule);
 require('./todo/forms/editProject.form.component')(applicationModule);
 require('./todo/forms/createTask.form.component')(applicationModule);
+require('./todo/forms/editTask.form.component')(applicationModule);
 require('./todo/taskList/taskList.component')(applicationModule);
 require('./todo/taskInfo/taskInfo.component')(applicationModule);
