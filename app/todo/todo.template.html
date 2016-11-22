@@ -9,7 +9,7 @@
                 <div class="toolbar">
                     <div class="toolbar__inner">
                         <search-view on-search-query-change="$todo.searchTodoByQuery(searchQuery)"></search-view>
-                        <more-menu></more-menu>
+                        <more-menu ng-if="$todo.selectedProject"></more-menu>
                     </div>
                 </div>
                 <task-list class="workspace-board" flex tasks="$todo.tasks"
